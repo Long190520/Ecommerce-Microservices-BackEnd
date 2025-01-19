@@ -1,0 +1,13 @@
+﻿global using FluentValidation;
+global using Mapster;
+global using Carter;
+global using Marten;
+global using MediatR;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Exceptions;
+global using Microsoft.IdentityModel.Tokens;
+global using UserService.Abstractions;
+global using UserService.Dtos;
+global using UserService.Models;
+global using UserService.Utils;
+global using UserService.Exceptions;

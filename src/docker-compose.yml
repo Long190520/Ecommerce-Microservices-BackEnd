@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  userServicedb:
+    image: postgres
+
+  userservice.api:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/UserService.API/Dockerfile
+
+volumes:
+  postgres_userService:
