@@ -1,6 +1,4 @@
-﻿using Catalog.API.Products.GetProductsByCategory;
-
-namespace Catalog.API.Products.GetProductsByCategory
+﻿namespace Catalog.API.Products.GetProductsByCategory
 {
     public record GetProductsByCategoryRequest(Guid id);
     public record GetProductsByCategoryResponse(IReadOnlyList<Product> Products);
@@ -9,7 +7,7 @@ namespace Catalog.API.Products.GetProductsByCategory
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost("/products/{id}", async (Guid id, ISender sender) =>
+            app.MapGet("/products/category/{id}", async (Guid id, ISender sender) =>
             {
                 var result = await sender.Send(new GetProductsByCategoryQuery(id));
 
@@ -20,6 +18,7 @@ namespace Catalog.API.Products.GetProductsByCategory
             .WithName("GetProductByCategory")
             .Produces<GetProductsByCategoryResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("GetProductByCategory")
             .WithDescription("Get Product By Category");
         }

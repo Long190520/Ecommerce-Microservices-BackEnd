@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.API", "Services\UserService\UserService.API\UserService.API.csproj", "{1FBAA7C5-968B-4527-A876-F34331FDCFD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{FABDE0EE-C5AC-46B4-BE6C-1C6479267182}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{1FBAA7C5-968B-4527-A876-F34331FDCFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FBAA7C5-968B-4527-A876-F34331FDCFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FBAA7C5-968B-4527-A876-F34331FDCFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABDE0EE-C5AC-46B4-BE6C-1C6479267182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABDE0EE-C5AC-46B4-BE6C-1C6479267182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABDE0EE-C5AC-46B4-BE6C-1C6479267182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABDE0EE-C5AC-46B4-BE6C-1C6479267182}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +75,6 @@ Global
 		{6EDB2A09-FB1F-4AA2-AC06-202A18F55DDA} = {3A7599BD-68A7-486D-AFEC-4F6705C84FFB}
 		{45307E25-D0B3-43BD-9098-673F0EA139CA} = {83EBD6EC-4F40-4F77-AD0E-C93D971D70ED}
 		{1FBAA7C5-968B-4527-A876-F34331FDCFD1} = {45307E25-D0B3-43BD-9098-673F0EA139CA}
+		{FABDE0EE-C5AC-46B4-BE6C-1C6479267182} = {91CC7EA0-7113-4678-B7E1-0EBF4A011B1B}
 	EndGlobalSection
 EndGlobal

@@ -1,8 +1,17 @@
-﻿
+﻿using Catalog.API.Products.DeleteProduct;
+
 namespace Catalog.API.Products.GetProductById
 {
     public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
     public record GetProductByIdResult(Product Product);
+
+    public class GetProductByIdRequestValidator : AbstractValidator<GetProductByIdQuery>
+    {
+        public GetProductByIdRequestValidator()
+        {
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required");
+        }
+    }
 
     internal class GetProductByIdHandler
         (IDocumentSession session)
