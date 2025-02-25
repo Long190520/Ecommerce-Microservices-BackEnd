@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Catalog.Grpc";
+
+package Catalog;
+
+// The product service definition.
+service ProductService {
+  // Gets the product by id.
+  rpc GetProductVariantByProductId(GetProductVariantByProductIdRequest) returns (GetProductVariantByProductIdResponse);
+}
+
+message GetProductVariantByProductIdRequest {
+  string productId = 1;
+}
+
+message GetProductVariantByProductIdResponse {
+  string productId = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}

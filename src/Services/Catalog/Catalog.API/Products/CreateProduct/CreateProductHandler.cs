@@ -1,4 +1,7 @@
-﻿namespace Catalog.API.Products.CreateProduct
+﻿using Catalog.API.Models;
+using System.Xml.Linq;
+
+namespace Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, string Description, Guid CategoryId) : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
@@ -13,22 +16,22 @@
     }
 
     internal class CreateProductHandler
-        (IDocumentSession session)
+        (IProductRepository repository)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             var product = new Product
             {
+                Id = Guid.NewGuid(),
                 Name = command.Name,
                 Description = command.Description,
                 CategoryId = command.CategoryId
             };
 
-            session.Store(product);
-            await session.SaveChangesAsync(cancellationToken);
+            var res = await repository.AddAsync(product, cancellationToken);
 
-            return new CreateProductResult(product.Id);
+            return new CreateProductResult(res.Id);
         }
     }
 }

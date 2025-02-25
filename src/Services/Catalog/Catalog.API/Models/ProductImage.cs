@@ -2,9 +2,10 @@
 {
     public class ProductImage
     {
-        public string Id { get; set; }
-        public string URL { get; set; }
-        public string Description { get; set; }
+        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
+        public string URL { get; set; } = default!;
+        public string Description { get; set; } = default!;
         public int SortOrder { get; set; }
     }
 }

@@ -24,15 +24,7 @@ namespace Catalog.API.Products.UpdateProduct
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = new Product
-            {
-                Id = Guid.NewGuid(),
-                Name = command.Name,
-                Description = command.Description,
-                CategoryId = command.CategoryId
-            };
-
-            var result = await repository.UpdateAsync(product, cancellationToken);
+            var result = await repository.UpdateProduct(command.Id, command.Name, command.Description, command.CategoryId, cancellationToken);
 
             return new UpdateProductResult(true);
         }

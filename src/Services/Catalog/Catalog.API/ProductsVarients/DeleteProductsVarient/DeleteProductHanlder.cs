@@ -1,4 +1,5 @@
-﻿namespace Catalog.API.Products.DeleteProduct
+﻿
+namespace Catalog.API.Products.DeleteProduct
 {
     public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
     public record DeleteProductResult(bool IsSuccess);
@@ -17,7 +18,7 @@
     {
         public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            var result = await repository.DeleteAsync(command.Id, cancellationToken);
+            var result = await repository.DeleteProduct(command.Id, cancellationToken);
 
             return new DeleteProductResult(result);
         }

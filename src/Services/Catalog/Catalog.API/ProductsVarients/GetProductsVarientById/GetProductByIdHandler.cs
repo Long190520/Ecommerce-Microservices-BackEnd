@@ -18,7 +18,7 @@ namespace Catalog.API.Products.GetProductById
     {
         public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
-            var product = await repository.GetByIdAsync(query.Id, cancellationToken);
+            var product = await repository.GetProductById(query.Id, cancellationToken);
 
             return new GetProductByIdResult(product);
         }
