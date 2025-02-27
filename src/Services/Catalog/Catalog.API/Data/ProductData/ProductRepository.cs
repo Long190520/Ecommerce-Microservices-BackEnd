@@ -30,19 +30,10 @@
 
             return products;
         }
-
-        public async Task<IPagedList<Product>> GetProducts(int? PageNumer = 1, int? PageSize = 10, CancellationToken cancellationToken = default)
-        {
-            var products = await _session.Query<Product>()
-                .ToPagedListAsync(PageNumer ?? 1, PageSize ?? 1, cancellationToken);
-
-            return products;
-        }
     }
 
     public interface IProductRepository : IRepository<Product>
     {
         Task<IReadOnlyList<Product>> GetProductByCategory(Guid categoryId, CancellationToken cancellationToken = default);
-        Task<IPagedList<Product>> GetProducts(int? PageNumer = 1, int? PageSize = 10, CancellationToken cancellationToken = default);
     }
 }

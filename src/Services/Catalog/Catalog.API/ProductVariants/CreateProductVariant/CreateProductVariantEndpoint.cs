@@ -1,13 +1,13 @@
-﻿namespace Catalog.API.Products.CreateProductsVariant
+﻿namespace Catalog.API.ProductVariants.CreateProductVariant
 {
-    public record CreateProductVariantRequest(string Name, string Description, Guid CategoryId);
+    public record CreateProductVariantRequest(string Color, string Size, decimal Price, int StockQuantity, string ImageFile);
     public record CreateProductVariantResponse(Guid Id);
 
     public class CreateProductVariantEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost("/products", async (CreateProductVariantRequest request, ISender sender) =>
+            app.MapPost("/productVariants", async (CreateProductVariantRequest request, ISender sender) =>
             {
                 var command = request.Adapt<CreateProductVariantCommand>();
 
@@ -15,7 +15,7 @@
 
                 var response = result.Adapt<CreateProductVariantResponse>();
 
-                return Results.Created($"/products/{response.Id}", response);
+                return Results.Created($"/productVariants/{response.Id}", response);
             })
             .WithName("CreateProductVariant")
             .Produces<CreateProductVariantResponse>(StatusCodes.Status201Created)

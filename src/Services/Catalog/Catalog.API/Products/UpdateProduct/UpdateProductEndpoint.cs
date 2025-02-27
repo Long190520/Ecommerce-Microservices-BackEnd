@@ -2,7 +2,7 @@
 namespace Catalog.API.Products.UpdateProduct
 {
     public record UpdateProductRequest(Guid Id, string Name, string Description, Guid CategoryId);
-    public record UpdateProductResponse(bool IsSuccess);
+    public record UpdateProductResponse(Product Product);
 
     public class UpdateProductEndpoint : ICarterModule
     {

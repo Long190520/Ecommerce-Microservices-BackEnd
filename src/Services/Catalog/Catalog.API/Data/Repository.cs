@@ -21,6 +21,12 @@ namespace Catalog.API.Data
             return await _session.Query<T>().ToListAsync(cancellationToken);
         }
 
+        public async Task<IPagedList<T>> GetPagingAsync(int PageNumber = 1, int PageSize = 10, CancellationToken cancellationToken = default)
+        {
+            return await _session.Query<T>()
+                .ToPagedListAsync(PageNumber, PageSize, cancellationToken);
+        }
+
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             _session.Store(entity);

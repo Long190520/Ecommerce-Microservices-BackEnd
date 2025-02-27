@@ -3,7 +3,7 @@
 namespace Catalog.API.Products.UpdateProduct
 {
     public record UpdateProductCommand(Guid Id, string Name, string Description, Guid CategoryId) : ICommand<UpdateProductResult>;
-    public record UpdateProductResult(bool IsSuccess);
+    public record UpdateProductResult(Product Product);
 
     public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
     {
@@ -34,7 +34,7 @@ namespace Catalog.API.Products.UpdateProduct
 
             var result = await repository.UpdateAsync(product, cancellationToken);
 
-            return new UpdateProductResult(true);
+            return new UpdateProductResult(result);
         }
     }
 }

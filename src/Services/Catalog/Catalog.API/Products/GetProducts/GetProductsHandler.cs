@@ -9,7 +9,7 @@
     {
         public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
-            var products = await repository.GetProducts(query.PageNumer, query.PageSize, cancellationToken);
+            var products = await repository.GetPagingAsync(query.PageNumer, query.PageSize, cancellationToken);
 
             return new GetProductsResult(products);
         }
