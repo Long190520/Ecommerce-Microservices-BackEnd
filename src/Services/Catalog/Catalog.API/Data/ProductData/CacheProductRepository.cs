@@ -27,7 +27,7 @@ namespace Catalog.API.Data.ProductData
 
             var res = await repository.DeleteAsync(Id, cancellationToken);
 
-            if(res == false)
+            if (res == false)
             {
                 return res;
             }
@@ -79,16 +79,6 @@ namespace Catalog.API.Data.ProductData
             return product;
         }
 
-        public async Task<IPagedList<Product>> GetProducts(int? PageNumer = 1, int? PageSize = 10, CancellationToken cancellationToken = default)
-        {
-            var products = await repository.GetProducts(PageNumer, PageSize, cancellationToken);
-            if (products == null || !products.Any())
-            {
-                throw new ProductsNotFoundException();
-            }
-            return products;
-        }
-
         public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var products = await repository.GetAllAsync(cancellationToken);
@@ -111,6 +101,16 @@ namespace Catalog.API.Data.ProductData
             await cache.SetStringAsync(cacheKey, serializedProductVariant, cancellationToken);
 
             return res;
+        }
+
+        public async Task<IPagedList<Product>> GetPagingAsync(int? PageNumber = 1, int? PageSize = 10, CancellationToken cancellationToken = default)
+        {
+            var products = await repository.GetPagingAsync(PageNumber, PageSize, cancellationToken);
+            if (products == null || !products.Any())
+            {
+                throw new ProductsNotFoundException();
+            }
+            return products;
         }
     }
 }

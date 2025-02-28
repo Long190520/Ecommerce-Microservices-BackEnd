@@ -1,4 +1,6 @@
 ﻿
+using Catalog.API.Data.CategoryData;
+
 namespace Catalog.API.Categories.DeleteCategory
 {
     public record DeleteCategoryCommand(Guid Id) : ICommand<DeleteCategoryResult>;
@@ -13,22 +15,14 @@ namespace Catalog.API.Categories.DeleteCategory
     }
 
     public class DeleteCategoryHandler
-        (IDocumentSession session)
+        (ICategoryRepository repository
         : ICommandHandler<DeleteCategoryCommand, DeleteCategoryResult>
     {
-        public async Task<DeleteCategoryResult> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteCategoryResult> Handle(DeleteCategoryCommand command, CancellationToken cancellationToken)
         {
-            var category = await session.LoadAsync<Category>(request.Id, cancellationToken);
+            var res = await repository.DeleteAsync(command.Id, cancellationToken);
 
-            if (category is null)
-            {
-                throw new CategoryNotFoundException(request.Id);
-            }
-
-            session.Delete(category);
-            await session.SaveChangesAsync(cancellationToken);
-
-            return new DeleteCategoryResult(true);
+            return new DeleteCategoryResult(res);
         }
     }
 }

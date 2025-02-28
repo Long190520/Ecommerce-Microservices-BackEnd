@@ -2,7 +2,7 @@
 
 namespace Catalog.API.Categories.GetCategoriesByCategory
 {
-    public record GetCategoriesRequest(int? PageNumer = 1, int? PageSize = 10);
+    public record GetCategoriesRequest(int? PageNumber = 1, int? PageSize = 10);
     public record GetCategoriesResponse(IReadOnlyList<Category> Categories);
 
     public class GetCategoriesEndpoint : ICarterModule

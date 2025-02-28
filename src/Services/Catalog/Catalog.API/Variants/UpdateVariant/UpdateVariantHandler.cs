@@ -1,13 +1,11 @@
-﻿using Catalog.API.Products.CreateProduct;
-
-namespace Catalog.API.Products.UpdateProduct
+﻿namespace Catalog.API.Products.UpdateVariant
 {
-    public record UpdateProductVariantCommand(Guid Id, string Color, string Size, decimal Price, int StockQuantity, string ImageFile) : ICommand<UpdateProductVariantResult>;
-    public record UpdateProductVariantResult(ProductVariant ProductVariant);
+    public record UpdateVariantCommand(Guid Id, string Color, string Size, decimal Price, int StockQuantity, string ImageFile) : ICommand<UpdateVariantResult>;
+    public record UpdateVariantResult(Variant Variant);
 
-    public class UpdateProductVariantCommandValidator : AbstractValidator<UpdateProductVariantCommand>
+    public class UpdateVariantCommandValidator : AbstractValidator<UpdateVariantCommand>
     {
-        public UpdateProductVariantCommandValidator()
+        public UpdateVariantCommandValidator()
         {
             RuleFor(x => x.Color).NotEmpty().WithMessage("Color is required!");
             RuleFor(x => x.Size).NotEmpty().WithMessage("Size is required!");
@@ -17,13 +15,13 @@ namespace Catalog.API.Products.UpdateProduct
         }
     }
 
-    internal class UpdateProductVariantHandler
-        (IProductVariantRepository repository)
-        : ICommandHandler<UpdateProductVariantCommand, UpdateProductVariantResult>
+    internal class UpdateVariantHandler
+        (IVariantRepository repository)
+        : ICommandHandler<UpdateVariantCommand, UpdateVariantResult>
     {
-        public async Task<UpdateProductVariantResult> Handle(UpdateProductVariantCommand command, CancellationToken cancellationToken)
+        public async Task<UpdateVariantResult> Handle(UpdateVariantCommand command, CancellationToken cancellationToken)
         {
-            var productVariant = new ProductVariant
+            var productVariant = new Variant
             {
                 Id = command.Id,
                 Color = command.Color,
@@ -35,7 +33,7 @@ namespace Catalog.API.Products.UpdateProduct
 
             var result = await repository.UpdateAsync(productVariant, cancellationToken);
 
-            return new UpdateProductVariantResult(result);
+            return new UpdateVariantResult(result);
         }
     }
 }

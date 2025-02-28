@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Models
 {
-    public class ProductVariant
+    public class Variant
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }

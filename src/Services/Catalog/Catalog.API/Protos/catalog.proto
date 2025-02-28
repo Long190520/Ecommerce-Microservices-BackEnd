@@ -15,8 +15,10 @@ message GetProductVariantByProductIdRequest {
 }
 
 message GetProductVariantByProductIdResponse {
-  string productId = 1;
-  string name = 2;
-  string description = 3;
+  string id = 1;
+  string color = 2;
+  string size = 3;
   double price = 4;
+  int32 stockQuantity = 5;
+  string imageFile = 6;
 }

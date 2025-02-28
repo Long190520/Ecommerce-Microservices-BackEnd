@@ -2,7 +2,7 @@
 
 namespace Catalog.API.Products.GetProductsByCategory
 {
-    public record GetProductsRequest(int? PageNumer = 1, int? PageSize = 10);
+    public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
     public record GetProductsResponse(IReadOnlyList<Product> Products);
 
     public class GetProductsEndpoint : ICarterModule

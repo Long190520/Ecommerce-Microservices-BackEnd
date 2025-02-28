@@ -1,4 +1,6 @@
 ﻿
+using Catalog.API.Data.CategoryData;
+
 namespace Catalog.API.Categories.CreateCategory
 {
     public record CreateCategoryCommand(string Name) : ICommand<CreateCategoryResult>;
@@ -13,7 +15,7 @@ namespace Catalog.API.Categories.CreateCategory
     }
 
     public class UpdateCategoryHandler
-        (IDocumentSession session)
+        (ICategoryRepository repository)
         : ICommandHandler<CreateCategoryCommand, CreateCategoryResult>
     {
         public async Task<CreateCategoryResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -23,10 +25,9 @@ namespace Catalog.API.Categories.CreateCategory
                 Name = request.Name
             };
 
-            session.Store(category);
-            await session.SaveChangesAsync(cancellationToken);
+            var res = await repository.AddAsync(category, cancellationToken);
 
-            return new CreateCategoryResult(category.Id);
+            return new CreateCategoryResult(res.Id);
         }
     }
 }

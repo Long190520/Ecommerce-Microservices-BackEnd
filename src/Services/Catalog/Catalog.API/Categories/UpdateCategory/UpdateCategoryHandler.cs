@@ -1,5 +1,6 @@
 ﻿
 using Catalog.API.Categories.DeleteCategory;
+using Catalog.API.Data.CategoryData;
 
 namespace Catalog.API.Categories.UpdateCategory
 {
@@ -16,7 +17,7 @@ namespace Catalog.API.Categories.UpdateCategory
     }
 
     public class DeleteCategoryHandler
-        (IDocumentSession session)
+        (IDocumentSession session, ICategoryRepository repository)
         : ICommandHandler<UpdateCategoryCommand, UpdateCategoryResult>
     {
         public async Task<UpdateCategoryResult> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
@@ -30,8 +31,7 @@ namespace Catalog.API.Categories.UpdateCategory
 
             category.Name = request.Name;
 
-            session.Update(category);
-            await session.SaveChangesAsync(cancellationToken);
+            var res = await repository.UpdateAsync(category, cancellationToken);
 
             return new UpdateCategoryResult(true);
         }

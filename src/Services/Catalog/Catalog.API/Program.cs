@@ -26,6 +26,9 @@ builder.Services.AddMarten(opts =>
 
 }).UseLightweightSessions();
 
+
+builder.Services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
+builder.Services.Decorate<IProductVariantRepository, CacheProductVariantRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.Decorate<IProductRepository, CacheProductRepository>();
 

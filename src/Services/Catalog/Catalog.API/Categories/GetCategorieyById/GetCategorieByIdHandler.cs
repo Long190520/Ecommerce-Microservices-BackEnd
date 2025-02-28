@@ -1,4 +1,5 @@
-﻿using Catalog.API.Models;
+﻿using Catalog.API.Data.CategoryData;
+using Catalog.API.Models;
 
 namespace Catalog.API.Categories.GetCategoryById
 {
@@ -6,12 +7,12 @@ namespace Catalog.API.Categories.GetCategoryById
     public record GetCategoryByIdResult(Category Category);
 
     internal class GetCategoryByIdHandler
-        (IDocumentSession session)
+        (ICategoryRepository repository)
         : IQueryHandler<GetCategoryByIdQuery, GetCategoryByIdResult>
     {
         public async Task<GetCategoryByIdResult> Handle(GetCategoryByIdQuery query, CancellationToken cancellationToken)
         {
-            var category = await session.LoadAsync<Category>(query.categoryId,cancellationToken);
+            var category = await repository.GetByIdAsync(query.categoryId, cancellationToken);
 
             return new GetCategoryByIdResult(category);
         }

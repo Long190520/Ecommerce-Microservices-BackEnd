@@ -1,18 +1,19 @@
-﻿namespace Catalog.API.Categories.GetCategories
+﻿using Catalog.API.Data.CategoryData;
+
+namespace Catalog.API.Categories.GetCategories
 {
-    public record GetCategoriesQuery(int? PageNumer = 1, int? PageSize = 10) : IQuery<GetCategoriesResult>;
+    public record GetCategoriesQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetCategoriesResult>;
     public record GetCategoriesResult(IEnumerable<Category> Categories);
 
     internal class GetCategoriesHandler
-        (IDocumentSession session)
+        (ICategoryRepository repository)
         : IQueryHandler<GetCategoriesQuery, GetCategoriesResult>
     {
         public async Task<GetCategoriesResult> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)
         {
-            var Categories = await session.Query<Category>()
-                .ToPagedListAsync(query.PageNumer ?? 1, query.PageSize ?? 1, cancellationToken);
+            var categories = await repository.GetPagingAsync(query.PageNumber ?? 1, query.PageSize ?? 10, cancellationToken);
 
-            return new GetCategoriesResult(Categories);
+            return new GetCategoriesResult(categories);
         }
     }
 }

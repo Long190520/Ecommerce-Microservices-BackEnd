@@ -1,11 +1,11 @@
-﻿namespace Catalog.API.ProductVariants.CreateProductVariant
+﻿namespace Catalog.API.Variants.CreateVariant
 {
-    public record CreateProductVariantCommand(string Color, string Size, decimal Price, int StockQuantity, string ImageFile) : ICommand<CreateProductVariantResult>;
-    public record CreateProductVariantResult(Guid Id);
+    public record CreateVariantCommand(string Color, string Size, decimal Price, int StockQuantity, string ImageFile) : ICommand<CreateVariantResult>;
+    public record CreateVariantResult(Guid Id);
 
-    public class CreateProductVariantCommandValidator : AbstractValidator<CreateProductVariantCommand>
+    public class CreateVariantCommandValidator : AbstractValidator<CreateVariantCommand>
     {
-        public CreateProductVariantCommandValidator()
+        public CreateVariantCommandValidator()
         {
             RuleFor(x => x.Color).NotEmpty().WithMessage("Color is required!");
             RuleFor(x => x.Size).NotEmpty().WithMessage("Size is required!");
@@ -15,13 +15,13 @@
         }
     }
 
-    internal class CreateProductVariantHandler
-        (IProductVariantRepository repository)
-        : ICommandHandler<CreateProductVariantCommand, CreateProductVariantResult>
+    internal class CreateVariantHandler
+        (IVariantRepository repository)
+        : ICommandHandler<CreateVariantCommand, CreateVariantResult>
     {
-        public async Task<CreateProductVariantResult> Handle(CreateProductVariantCommand command, CancellationToken cancellationToken)
+        public async Task<CreateVariantResult> Handle(CreateVariantCommand command, CancellationToken cancellationToken)
         {
-            var productVariant = new ProductVariant
+            var productVariant = new Variant
             {
                 Id = new Guid(),
                 Color = command.Color,
@@ -33,7 +33,7 @@
 
             var res = await repository.AddAsync(productVariant, cancellationToken);
 
-            return new CreateProductVariantResult(productVariant.Id);
+            return new CreateVariantResult(productVariant.Id);
         }
     }
 }
